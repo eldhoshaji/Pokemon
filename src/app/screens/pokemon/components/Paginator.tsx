@@ -45,7 +45,7 @@ const CustomPagination: React.FC<PaginatorProps> = ({ totalPages, currentPage, o
   }
 
   return (
-    <div className='flex justify-around items-center mb-3'>
+    <div className='flex justify-around items-center flex-wrap gap-3 mb-3'>
         <Select.Root defaultValue="rank" size='3' onValueChange={(value: any)=> handleSelectChange(value)}>
             <Select.Trigger variant='ghost'/>
                 <Select.Content>

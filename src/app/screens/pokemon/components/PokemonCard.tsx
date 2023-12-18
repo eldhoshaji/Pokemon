@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usePokemonContext } from '../contexts/pokemonContext';
 import Image from 'next/image'
 import { RulerHorizontalIcon, LockClosedIcon } from '@radix-ui/react-icons'
+import { CardSkelton } from './CardSkelton';
 // import Skeleton from 'react-loading-skeleton';
 
 interface PokemonCardProps {
@@ -41,9 +42,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, onPokemonLis
 
     return (
         <div> { loading ?
-            (<div>Loading...</div>) : 
+            (
+                <CardSkelton></CardSkelton>
+            )
+            : 
             ( <div className="w-full flex gap-5 flex-wrap justify-center overflow-y-auto p-6" 
-                style={{height:'calc(100vh - 10rem)'}}>
+                style={{height: window.innerWidth > 500 ? 'calc(100vh - 10rem)' : 'calc(100vh - 12rem)'}}>
                 
                 { pokemonList.map((pokemon: any, index: number) => (
                         <div 

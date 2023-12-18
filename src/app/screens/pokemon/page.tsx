@@ -82,6 +82,7 @@ export default function Page() {
         setCurrentPage(1)
         setPokemonCount(count)
     }
+
     return (
 
         <Theme className='w-full'>
@@ -90,7 +91,7 @@ export default function Page() {
 
                     <div className="flex gap-3 w-full h-full" >
                         <div className='w-full'>
-                            <div className='flex flex-col h-36'>
+                            <div className='flex flex-col h-44 md:h-36'>
                                 <PokemonFilters 
                                     dropdownData={dropdownData} 
                                     onSearch={handleSearch}
