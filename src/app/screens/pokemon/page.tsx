@@ -69,7 +69,7 @@ export default function Page() {
             <div className='flex items-center h-screen my-6 w-full'>
                 <PokemonProvider searchText={searchText}>
 
-                    <div className="flex gap-3 w-full h-full">
+                    <div className="flex gap-3 w-full h-full" >
                         <div className='w-full'>
                             <PokemonFilters 
                                 dropdownData={dropdownData} 
