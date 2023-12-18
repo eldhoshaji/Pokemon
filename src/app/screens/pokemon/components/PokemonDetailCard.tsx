@@ -21,7 +21,6 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
     const fetchPokemonDetails = async () => {
         try {
             const details = await getPokemonSpeciesDetails(pokemon.order);            
-            console.log(details)
             setAbout(details.flavor_text_entries[0].flavor_text)
             setLoading(false);
         } catch (error) {
@@ -32,7 +31,7 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
     return (
         <div 
             key={pokemon.id}
-            className='h-5/6 md:h-[94%] min-w-[350px]'
+            className=' md:h-[94%] min-w-[350px]'
             style={{
                 background: 'white',
                 padding: '5px',
@@ -54,13 +53,11 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
             <div className='relative z-10 flex items-center flex-col'>
 
                 <div className='w-full flex justify-end'>
-
                     <IconButton onClick={() => onClose()}
                         style={{backgroundColor: 'white', cursor: 'pointer'}} radius="full" variant="soft">
                         <Cross2Icon style={{color: `var(--${pokemon.types[0]?.type?.name}`}}
                             width="18" height="18"/>
                     </IconButton>
-
                 </div>
                 
                 <img 
@@ -98,8 +95,20 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
                         </div>
                     </div>
 
-                    <div className='flex justify-center text-center text-sm mb-5 px-2'>
+                    <div className='flex justify-center text-center text-sm mb-5 mx-2'>
                         <p className='line-clamp-3'>{about}</p>
+                    </div>
+
+                    <div className='flex p-2 rounded-2xl mb-5'
+                        style={{background: `var(--${pokemon.types[0]?.type?.name})`, color: 'white'}}>
+                        
+                        <div className='flex items-center text-xs uppercase gap-3'>
+                            BASE EXPERIENCE 
+                            <span className='flex items-center justify-center rounded-full p-1 text-xs h-6 w-6 font-bold'
+                                style={{background: `white`, color: `var(--${pokemon.types[0]?.type?.name})`}}>
+                                {pokemon.base_experience}
+                            </span>
+                        </div>
                     </div>
 
 
@@ -119,7 +128,7 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
                         </div>
                     </div>
 
-                    <div className='flex flex-col items-center '>
+                    <div className='flex flex-col items-center mb-5'>
                         <p className='font-semibold mb-3 text-sm'>STATS</p>
                         <div className='flex flex-wrap gap-3'>
                             { pokemon.stats.map((item: any) => (

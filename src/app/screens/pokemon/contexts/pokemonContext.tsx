@@ -29,10 +29,6 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, sear
 
     useEffect(() => {
         fetchPokemonList();
-    }, []);
-
-    useEffect(() => {
-        fetchPokemonList();
     }, [searchText, orderPage, currentPage]);
 
 
@@ -67,7 +63,6 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, sear
                 return { ...pokemon, ...detailsResult };
             });
             const detailsResults = await Promise.all(details);
-            console.log(detailsResults)
             setPokemonList(detailsResults);
             setLoading(false);
         } catch (error) {

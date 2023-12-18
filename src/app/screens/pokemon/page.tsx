@@ -42,7 +42,6 @@ export default function Page() {
     }, [selectedPokemon]);
 
     useEffect(() => {
-        // Delay the transition to ensure it works after the initial rendering
         const timeoutId = setTimeout(() => {
             setShowDetailCard(selectedPokemon !== null);
         }, 0);
@@ -54,7 +53,7 @@ export default function Page() {
         setShowDetailCard(false);
         setTimeout(() => {
             setSelectedPokemon(null);
-        }, 300); // Adjust the time based on your transition duration
+        }, 300);
     };
 
     const handleSearch = (text: string) => {

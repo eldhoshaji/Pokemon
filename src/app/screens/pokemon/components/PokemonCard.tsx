@@ -3,7 +3,6 @@ import { usePokemonContext } from '../contexts/pokemonContext';
 import Image from 'next/image'
 import { RulerHorizontalIcon, LockClosedIcon } from '@radix-ui/react-icons'
 import { CardSkelton } from './CardSkelton';
-// import Skeleton from 'react-loading-skeleton';
 
 interface PokemonCardProps {
     onPokemonSelect: (pokemon: any) => void;
@@ -54,6 +53,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, onPokemonLis
                         
                         { pokemonList.map((pokemon: any, index: number) => (
                                 <div 
+                                    className='min-h-[344px]'
                                     key={pokemon.id}
                                     style={{
                                         background: 'white',
@@ -97,9 +97,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, onPokemonLis
                                                 <div style={{color: 'white'}} className='text-xl font-bold capitalize'>{pokemon.name}</div>
                                                 <div style={{color: 'white'}} className='text-xl font-bold capitalize'>#0{pokemon.id}</div>
                                             </div>
-                                            <img 
+                                            <img
                                                 src={hoveredCards[index] ? pokemon.sprites.other.home.front_shiny : pokemon.sprites.other.home.front_default} 
-                                                alt={pokemon.name} className="w-36 mb-8" 
+                                                alt={pokemon.name} className="min-h-[144px] w-36 mb-8" 
                                             />
 
                                             <div className='flex flex-col items-center'>
@@ -133,7 +133,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, onPokemonLis
                                 </div>
                             )
                         )}
-
 
                     </div>
                 )

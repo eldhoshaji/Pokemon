@@ -11,8 +11,6 @@ export async function getPokemonDetail(name: string) {
 export async function getPokemonSpeciesDetails(id: number) {
   const urlRoute = `pokemon-species/${id}`;
   const pokemonSpecies = await apiCall(urlRoute, 'GET', null);
-  // console.log(json)
-  // const pokemonDetail: Pokemon = json.data;
   return pokemonSpecies
 }
 
