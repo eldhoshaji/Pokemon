@@ -48,7 +48,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, isLoading })
       ) : (
 
         <div className="w-full flex gap-5 flex-wrap justify-center overflow-y-auto p-6" 
-            style={{height:'calc(100vh - 162px)'}}>
+            style={{height:'calc(100vh - 110px)'}}>
             
             { pokemonList.map((pokemon: any, index: number) => (
                     <div 

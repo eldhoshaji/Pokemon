@@ -65,8 +65,8 @@ export default function Page() {
 
     return (
 
-        <Theme appearance="light" accentColor="gray">
-            <div className='flex items-center h-screen m-6 w-full'>
+        <Theme>
+            <div className='flex items-center h-screen my-6 w-full'>
                 <PokemonProvider searchText={searchText}>
 
                     <div className="flex gap-3 w-full h-full">
@@ -81,7 +81,7 @@ export default function Page() {
                         {selectedPokemon && (
                             <div 
                                 className={clsx(
-                                    'fixed md:relative inset-0 z-50 min-w-[400px] md:w-4/12 md:overflow-hidden h-full',
+                                    'fixed md:relative inset-0 z-50 min-w-[400px] md:w-4/12 md:overflow-hidden h-full mr-6',
                                     {
                                     'flex items-center justify-center': window.innerWidth < 768,
                                     },

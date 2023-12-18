@@ -62,7 +62,7 @@ const PokemonFilters: React.FC<PokemonFiltersProps> = ({ dropdownData, onSearch,
                 </TextField.Root>
             </div>
 
-            <div className='flex justify-center flex-wrap gap-4 md:gap-8 mb-3'>
+            {/* <div className='flex justify-center flex-wrap gap-4 md:gap-8 mb-3'>
                 {Object.entries(dropdownData).map(([category, values]) => (
                     <Select.Root key={category} onValueChange={(value: any)=> handleSelectChange(value, category)}>
                         <Select.Trigger  style={{
@@ -88,7 +88,7 @@ const PokemonFilters: React.FC<PokemonFiltersProps> = ({ dropdownData, onSearch,
                     onClick={handleApplyFilters}>
                     Apply Filters
                 </Button>
-            </div>
+            </div> */}
         </div>
     );
 };
