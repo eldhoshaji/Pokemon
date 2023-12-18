@@ -65,7 +65,7 @@ export default function Page() {
 
     return (
 
-        <Theme>
+        <Theme className='w-full'>
             <div className='flex items-center h-screen my-6 w-full'>
                 <PokemonProvider searchText={searchText}>
 
