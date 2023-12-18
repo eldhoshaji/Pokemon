@@ -86,7 +86,6 @@ export default function Page() {
         <Theme className='w-full'>
             <div className='flex items-center h-screen my-6 w-full'>
                 <PokemonProvider searchText={searchText} currentPage={currentPage} orderPage={orderPage}>
-
                     <div className="flex gap-3 w-full h-full" >
                         <div className='w-full'>
                             <div className='flex flex-col h-44 md:h-36'>

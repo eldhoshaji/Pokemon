@@ -84,7 +84,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, onPokemonLis
                                             }}
                                         >
                                             <div style={{ position: 'absolute', top: '0', right: '0', width: '150px', 
-                                                                height: '150px', objectFit: 'cover', borderRadius: '3px'}}>
+                                                            height: '150px', objectFit: 'cover', borderRadius: '3px', 
+                                                            transition: 'transform 0.5s ease',
+                                                            transform: hoveredCards[index] ? 'rotate(90deg)' : 'rotate(0deg)'
+                                                        }}>
                                                 <Image
                                                     src="/pokeball.svg"
                                                     alt="Logo"
