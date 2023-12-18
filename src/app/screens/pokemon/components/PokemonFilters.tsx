@@ -65,7 +65,7 @@ const PokemonFilters: React.FC<PokemonFiltersProps> = ({ dropdownData, onSearch,
             <div className='flex justify-center flex-wrap gap-4 md:gap-8 mb-3'>
                 {Object.entries(dropdownData).map(([category, values]) => (
                     <Select.Root key={category} onValueChange={(value: any)=> handleSelectChange(value, category)}>
-                        <Select.Trigger placeholder={category} style={{
+                        <Select.Trigger  style={{
                                     height: '40px',
                                     backgroundColor: 'white',
                                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',

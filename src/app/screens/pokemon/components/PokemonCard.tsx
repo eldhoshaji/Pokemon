@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePokemonContext } from '../contexts/pokemonContext';
 import Image from 'next/image'
 import { RulerHorizontalIcon, LockClosedIcon } from '@radix-ui/react-icons'
+// import Skeleton from 'react-loading-skeleton';
 
 interface PokemonCardProps {
     onPokemonSelect: (pokemon: any) => void;
+    isLoading?: boolean
 }
 
-const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect }) => {
+const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, isLoading }) => {
 
     const { pokemonList } = usePokemonContext();
+    const [loading, setLoading] = useState(true);
 
     const [hoveredCards, setHoveredCards] = useState(Array(pokemonList.length).fill(false));
+
+    useEffect(() => {
+        console.log('123')
+        isLoading = pokemonList.length === 0 ?  false : true;
+    }, [pokemonList]);
 
     const handleMouseEnter = (index: number) => {
         setHoveredCards((prev) => {
@@ -34,9 +42,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect }) => {
     };
 
     return (
+
+        <div>
+                  {isLoading ? (<div>Loading...</div>
+      ) : (
+
         <div className="w-full flex gap-5 flex-wrap justify-center overflow-y-auto p-6" 
-        style={{height:'calc(100vh - 162px)'}}
-        >
+            style={{height:'calc(100vh - 162px)'}}>
             
             { pokemonList.map((pokemon: any, index: number) => (
                     <div 
@@ -49,6 +61,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect }) => {
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             transform: hoveredCards[index] ? 'scale(1.05)' : 'none',
                             cursor: hoveredCards[index] ? 'pointer' : 'none',
+                            maxHeight: '344px'
                         }}
                         onMouseEnter={() => handleMouseEnter(index)}
                         onMouseLeave={() => handleMouseLeave(index)}
@@ -115,6 +128,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect }) => {
                 )
             )}
         </div>
+      )}
+      </div>
+
     );
 };
 
