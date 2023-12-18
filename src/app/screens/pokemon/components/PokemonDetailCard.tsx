@@ -99,12 +99,12 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
                         <p className='line-clamp-3'>{about}</p>
                     </div>
 
-                    <div className='flex p-2 rounded-2xl mb-5'
+                    <div className='flex p-1 rounded-2xl mb-5'
                         style={{background: `var(--${pokemon.types[0]?.type?.name})`, color: 'white'}}>
                         
-                        <div className='flex items-center text-xs uppercase gap-3'>
-                            BASE EXPERIENCE 
-                            <span className='flex items-center justify-center rounded-full p-1 text-xs h-6 w-6 font-bold'
+                        <div className='flex items-center text-xs uppercase gap-2'>
+                            <div className='font-bold ml-1'>BASE EXPERIENCE</div>
+                            <span className='flex items-center justify-center rounded-full p-1 text-xs h-8 w-8 font-bold'
                                 style={{background: `white`, color: `var(--${pokemon.types[0]?.type?.name})`}}>
                                 {pokemon.base_experience}
                             </span>

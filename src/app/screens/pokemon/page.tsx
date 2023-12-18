@@ -90,18 +90,25 @@ export default function Page() {
                     <div className="flex gap-3 w-full h-full" >
                         <div className='w-full'>
                             <div className='flex flex-col h-44 md:h-36'>
+
                                 <PokemonFilters 
                                     dropdownData={dropdownData} 
                                     onSearch={handleSearch}
                                     onFilter={handleFilters}
                                 ></PokemonFilters>
+
+                                { pokemonCount > 0 ?
+                                    <CustomPagination 
+                                        totalPages={(Math.ceil(pokemonCount/25))} 
+                                        currentPage={currentPage} 
+                                        onChangePage={handlePageChange}
+                                        onOrderChange={handleOrderChange}
+                                    ></CustomPagination>
+                                    : null
+                                }
                                 
-                                <CustomPagination 
-                                    totalPages={(Math.ceil(pokemonCount/25))} 
-                                    currentPage={currentPage} 
-                                    onChangePage={handlePageChange}
-                                    onOrderChange={handleOrderChange}
-                                ></CustomPagination>
+                                
+                                
                             </div>
                             
                             <PokemonCard onPokemonSelect={handlePokemonSelect} onPokemonListChange={handlePokemonList}/>

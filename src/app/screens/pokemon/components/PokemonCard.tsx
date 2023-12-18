@@ -44,7 +44,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ onPokemonSelect, onPokemonLis
             (
                 <CardSkelton></CardSkelton>
             ) : ( !pokemonList.length ? 
-                <div className='flex items-center justify-center w-full my-52 p-6 text-xl text-bold'>
+                <div className='flex flex-col items-center justify-center w-full my-48 p-6 text-xl text-bold text-center gap-3'>
+                     <img
+                        src="./pokeball-pokemon.gif"
+                        alt="Pokemon"
+                        style={{ width: '30%', height: 'auto' }}
+                    />
                     Sorry, no Pokemon available based on your search.
                 </div> :
                 ( 
