@@ -1,10 +1,9 @@
 'use client';
 import { Theme } from '@radix-ui/themes';
-
 import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/PokemonCard';
 import PokemonDetailCard from './components/PokemonDetailCard';
-import { PokemonProvider, usePokemonContext } from './contexts/pokemonContext';
+import { PokemonProvider } from './contexts/pokemonContext';
 import clsx from 'clsx';
 import PokemonFilters from './components/PokemonFilters';
 import CustomPagination from './components/Paginator';
@@ -31,7 +30,7 @@ export default function Page() {
 
     useEffect(() => {
         const handleResize = () => {
-            // const width = window.innerWidth;
+            const width = window.innerWidth;
         };
 
         handleResize(); // Initial check

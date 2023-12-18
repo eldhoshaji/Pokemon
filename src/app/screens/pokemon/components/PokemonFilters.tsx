@@ -31,6 +31,12 @@ const PokemonFilters: React.FC<PokemonFiltersProps> = ({ dropdownData, onSearch,
         onFilter(selectedFilters)
     }
 
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            handleSearchClick()
+        }
+      };
+
     return (
         <div className='flex flex-col items-center'>
             <div className='mb-3 p-3 w-full md:w-4/6 lg:w-3/6'>
@@ -44,8 +50,14 @@ const PokemonFilters: React.FC<PokemonFiltersProps> = ({ dropdownData, onSearch,
                     <TextField.Slot>
                         <MagnifyingGlassIcon height="16" width="16" />
                     </TextField.Slot>
-                    <TextField.Input style={{height: '50px'}} placeholder="Search your pokemon!" ref={inputRef}
-                            value={searchText} onChange={(e: any) => setSearchText(e.target.value)}/>
+                    
+                    <TextField.Input 
+                        style={{height: '50px'}} 
+                        placeholder="Search your pokemon!" 
+                        ref={inputRef}
+                        value={searchText} 
+                        onChange={(e: any) => setSearchText(e.target.value)}
+                        onKeyDown={handleKeyDown}/>
                     
                     <div className='flex items-center justify-center m-2 cursor-pointer p-1 rounded-lg z-50 relative w-10' 
                             style={{backgroundColor: 'red'}}>

@@ -67,7 +67,7 @@ const CustomPagination: React.FC<PaginatorProps> = ({ totalPages, currentPage, o
         >
           <ChevronLeftIcon/>
         </div>
-        {generatePageNumbers()}
+        { generatePageNumbers() }
         <div
           className={`flex items-center justify-center rounded-full p-1 text-xs h-9 w-9 cursor-pointer ${
             currentPage === totalPages ? '' : 'shadow-md'
