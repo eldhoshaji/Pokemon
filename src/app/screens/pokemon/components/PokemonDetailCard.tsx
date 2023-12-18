@@ -1,6 +1,8 @@
-import React from 'react';
-import { RulerHorizontalIcon, LockClosedIcon, Cross2Icon } from '@radix-ui/react-icons';
+import React, { useEffect, useState } from 'react';
+import { RulerHorizontalIcon, LockClosedIcon, Cross2Icon, EyeNoneIcon } from '@radix-ui/react-icons';
 import { IconButton } from '@radix-ui/themes';
+import { formatStatName } from '@/lib/utils/formatUtils';
+import { getPokemonSpeciesDetails } from '@/app/api/pokemon/get';
 
 interface PokemonDetailCardProps {
     pokemon: any;
@@ -9,6 +11,23 @@ interface PokemonDetailCardProps {
 
 const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose }) => {
     
+    const [loading, setLoading] = useState<boolean>(true);
+    const [about, setAbout] = useState<string>('');
+
+    useEffect(() => {
+        fetchPokemonDetails();
+    }, [pokemon]);
+
+    const fetchPokemonDetails = async () => {
+        try {
+            const details = await getPokemonSpeciesDetails(pokemon.order);            
+            console.log(details)
+            setAbout(details.flavor_text_entries[0].flavor_text)
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
+    };
     
     return (
         <div 
@@ -30,11 +49,7 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
                     background: `linear-gradient(to bottom, var(--${pokemon.types[0]?.type?.name}) 25%, white 75%)`,
                     border: `2px solid var(--${pokemon.types[0]?.type?.name})`
                 }}
-            >
-                {/* <div style={{ position: 'absolute', top: '0', right: '0', width: '250', height: '250', objectFit: 'cover', borderRadius: '3px'}}>
-                </div> */}
-
-            </div>
+            ></div>
 
             <div className='relative z-10 flex items-center flex-col'>
 
@@ -48,18 +63,20 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
 
                 </div>
                 
-                <img style={{marginTop: '-5px'}} src={pokemon.sprites.other.home.front_default} alt={pokemon.name} className="w-56 mb-3" />
+                <img style={{marginTop: '-15px'}} src={pokemon.sprites.other.home.front_default} alt={pokemon.name} 
+                    className="w-56 mb-3" />
                 <div style={{color: 'white'}} className='text-2xl font-bold capitalize mb-3'>{pokemon.name}</div>
 
                 <div className='flex flex-col items-center'>
-                    <div className='flex gap-3'>
+                    <div className='flex gap-3 mb-5'>
                         { pokemon.types.map((item: any) => (
                             <div key={item.type.name} className='px-2 py-1 rounded' style={{ background: `var(--${item.type.name})`}}>
                                 <p style={{color: 'white'}} className='text-xs uppercase'>{item.type.name}</p>
                             </div>)
                         )}
                     </div>
-                    <div className='flex gap-5 my-5'>
+                    
+                    <div className='flex gap-5 mb-5'>
                         <div className='flex flex-col items-center text-sm'>
                             <div className='flex items-center mb-2 font-semibold'>
                                 <LockClosedIcon />
@@ -74,6 +91,46 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
                                 <span className='ml-2'>{pokemon.height/10} m</span>
                             </div>
                             <span className='text-xs'>Height</span>
+                        </div>
+                    </div>
+
+                    <div className='flex justify-center text-center text-sm mb-5 px-2'>
+                        <p className='line-clamp-3'>{about}</p>
+                    </div>
+
+
+                    <div className='flex flex-col items-center mb-5'>
+                        <p className='font-semibold mb-3 text-sm'>ABILITIES</p>
+                        <div className='flex gap-3'>
+                            { pokemon.abilities.map((item: any) => (
+                                <div key={item.ability.name} className='flex p-3 border-2 rounded-2xl'
+                                    style={{borderColor: `var(--${pokemon.types[0]?.type?.name})`}}>
+                                    { item.is_hidden ?
+                                        <EyeNoneIcon width="18" height="18" className='mr-2'/>
+                                        : null
+                                    }
+                                    <p className='text-xs uppercase'>{item.ability.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className='flex flex-col items-center '>
+                        <p className='font-semibold mb-3 text-sm'>STATS</p>
+                        <div className='flex flex-wrap gap-3'>
+                            { pokemon.stats.map((item: any) => (
+                                <div key={item.stat.name} className='flex p-1 rounded-2xl'
+                                    style={{background: `var(--background-card)`}}>
+                                    <div className='flex items-center flex-col rounded-full'>
+                                        <div className='flex items-center justify-center rounded-full p-1 text-xs h-9 w-9 mb-2'
+                                         style={{background: `var(--${item.stat.name.toLowerCase()})`, color: 'white'}}>
+                                            {formatStatName(item.stat.name)}
+                                        </div>
+
+                                        <p className='text-xs font-bold uppercase mb-1'>{item.base_stat}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

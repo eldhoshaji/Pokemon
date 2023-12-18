@@ -6,6 +6,7 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --background: #f7f8fc;
+  --background-card: #f2f4fa;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
@@ -29,6 +30,13 @@
   --water: #6493EB;
 
   --default: #ccced4;
+  
+  --hp: #FF595E;
+  --attack: #FFCA3A;
+  --defense: #8AC926;
+  --special-attack: #1982C4;
+  --special-defense: #6A0572;
+  --speed: #FF8C00;
 }
 
 @media (prefers-color-scheme: dark) {
