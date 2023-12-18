@@ -89,7 +89,6 @@ export default function Page() {
                     <div className="flex gap-3 w-full h-full" >
                         <div className='w-full'>
                             <div className='flex flex-col h-44 md:h-36'>
-
                                 <PokemonFilters 
                                     dropdownData={dropdownData} 
                                     onSearch={handleSearch}
@@ -104,10 +103,7 @@ export default function Page() {
                                         onOrderChange={handleOrderChange}
                                     ></CustomPagination>
                                     : null
-                                }
-                                
-                                
-                                
+                                }  
                             </div>
                             
                             <PokemonCard onPokemonSelect={handlePokemonSelect} onPokemonListChange={handlePokemonList}/>
