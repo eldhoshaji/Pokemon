@@ -32,7 +32,7 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
     return (
         <div 
             key={pokemon.id}
-            className='h-5/6 md:h-[93%] min-w-[350px]'
+            className='h-5/6 md:h-[94%] min-w-[350px]'
             style={{
                 background: 'white',
                 padding: '5px',
@@ -63,8 +63,12 @@ const PokemonDetailCard: React.FC<PokemonDetailCardProps> = ({ pokemon, onClose 
 
                 </div>
                 
-                <img style={{marginTop: '-15px'}} src={pokemon.sprites.other.home.front_default} alt={pokemon.name} 
-                    className="w-56 mb-3" />
+                <img 
+                    style={{marginTop: '-15px'}} 
+                    src={pokemon.sprites.other.home.front_default} alt={pokemon.name} 
+                    className="w-36 md:w-56 mb-3"
+                />
+
                 <div style={{color: 'white'}} className='text-2xl font-bold capitalize mb-3'>{pokemon.name}</div>
 
                 <div className='flex flex-col items-center'>

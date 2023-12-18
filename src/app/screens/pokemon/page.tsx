@@ -4,15 +4,19 @@ import { Theme } from '@radix-ui/themes';
 import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/PokemonCard';
 import PokemonDetailCard from './components/PokemonDetailCard';
-import { PokemonProvider } from './contexts/pokemonContext';
+import { PokemonProvider, usePokemonContext } from './contexts/pokemonContext';
 import clsx from 'clsx';
 import PokemonFilters from './components/PokemonFilters';
+import CustomPagination from './components/Paginator';
 
 export default function Page() {
 
     const [selectedPokemon, setSelectedPokemon] = useState(null);
     const [showDetailCard, setShowDetailCard] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [orderPage, setOrderPage] = useState('rank');
+    const [pokemonCount, setPokemonCount] = useState(Number);
 
     const dropdownData = {
         Type: ['Grass', 'Bug', 'Fire', 'Ice'],
@@ -63,25 +67,50 @@ export default function Page() {
         console.log(filters)
     }
 
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page)
+        handleClose()
+    }
+
+    const handleOrderChange = (order: string) => {
+        setCurrentPage(1)
+        setOrderPage(order)
+        handleClose()
+    }
+
+    const handlePokemonList = (count: number) => {
+        setCurrentPage(1)
+        setPokemonCount(count)
+    }
     return (
 
         <Theme className='w-full'>
             <div className='flex items-center h-screen my-6 w-full'>
-                <PokemonProvider searchText={searchText}>
+                <PokemonProvider searchText={searchText} currentPage={currentPage} orderPage={orderPage}>
 
                     <div className="flex gap-3 w-full h-full" >
                         <div className='w-full'>
-                            <PokemonFilters 
-                                dropdownData={dropdownData} 
-                                onSearch={handleSearch}
-                                onFilter={handleFilters}>
-                            </PokemonFilters>
-                            <PokemonCard onPokemonSelect={handlePokemonSelect}/>
+                            <div className='flex flex-col h-36'>
+                                <PokemonFilters 
+                                    dropdownData={dropdownData} 
+                                    onSearch={handleSearch}
+                                    onFilter={handleFilters}
+                                ></PokemonFilters>
+                                
+                                <CustomPagination 
+                                    totalPages={(Math.ceil(pokemonCount/25))} 
+                                    currentPage={currentPage} 
+                                    onChangePage={handlePageChange}
+                                    onOrderChange={handleOrderChange}
+                                ></CustomPagination>
+                            </div>
+                            
+                            <PokemonCard onPokemonSelect={handlePokemonSelect} onPokemonListChange={handlePokemonList}/>
                         </div>
                         {selectedPokemon && (
                             <div 
                                 className={clsx(
-                                    'fixed md:relative inset-0 z-50 min-w-[400px] md:w-4/12 md:overflow-hidden h-full mr-6',
+                                    'fixed md:relative inset-0 z-50 min-w-[400px] md:w-4/12 md:overflow-hidden h-full md:mr-6',
                                     {
                                     'flex items-center justify-center': window.innerWidth < 768,
                                     },

@@ -6,19 +6,24 @@ import { getPokemonDetail } from '@/app/api/pokemon/get';
 
 interface PokemonContextProps {
   pokemonList: Pokemon[];
+  pokemonCount: number;
   loading: boolean;
   error: string | null;
 }
 
 interface PokemonProviderProps {
   children: ReactNode;
-  searchText?: string; 
+  searchText?: string;
+  orderPage?: string;
+  currentPage?: number;
 }
 
 const PokemonContext = createContext<PokemonContextProps | undefined>(undefined);
 
-export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, searchText }) => {
+export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, searchText, orderPage, currentPage }) => {
     const [pokemonList, setPokemonList] = useState<(Pokemon & any)[]>([]);
+    const [pokemonCount, setPokemonCount] = useState(Number);
+
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -28,13 +33,19 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, sear
 
     useEffect(() => {
         fetchPokemonList();
-    }, [searchText]);
+    }, [searchText, orderPage, currentPage]);
 
 
     const fetchPokemonList = async () => {
         try {
-            const limit = 50;
-            const listResult = await getPokemonList();
+            const limit = 25;
+            let listResult = await getPokemonList();
+
+            if(orderPage == 'asc') {
+                listResult = listResult.sort((a, b) => a.name.localeCompare(b.name));
+            } else if(orderPage == 'des') {
+                listResult = listResult.sort((a, b) => b.name.localeCompare(a.name));
+            }
             
             let filteredPokemonList = [];
             if(searchText) {
@@ -44,7 +55,13 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, sear
             } else {
                 filteredPokemonList = listResult
             }
-            const slicedPokemonList = filteredPokemonList.slice(0, limit);
+
+            setPokemonCount(filteredPokemonList.length)
+            
+            const startIndex = (currentPage ? currentPage - 1 : 0) * limit
+            
+            const slicedPokemonList = filteredPokemonList.slice(startIndex, startIndex+limit);
+            
             const details = slicedPokemonList.map(async (pokemon, index) => {
                 const detailsResult = await getPokemonDetail(pokemon.name);
                 return { ...pokemon, ...detailsResult };
@@ -60,7 +77,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children, sear
     };
 
     return (
-        <PokemonContext.Provider value={{ pokemonList, loading, error }}>
+        <PokemonContext.Provider value={{ pokemonList, pokemonCount, loading, error }}>
             {children}
         </PokemonContext.Provider>
     );
